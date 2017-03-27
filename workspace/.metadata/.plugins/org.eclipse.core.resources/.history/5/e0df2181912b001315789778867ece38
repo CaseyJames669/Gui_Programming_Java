@@ -1,0 +1,95 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class showDialog extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					showDialog frame = new showDialog();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public showDialog() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.WEST);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		JButton btnShowMessage = new JButton("Show Message");
+		btnShowMessage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,"Please enter a number for the hours worked");
+			}
+		});
+		panel.add(btnShowMessage);
+		
+		JButton btnShowConfirm = new JButton("Show Confirm");
+		btnShowConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				int selectedOption = JOptionPane.showConfirmDialog(
+						contentPane, 
+						"Exit without saving?", 
+						"Warning: File Not Saved",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+			}
+		});
+		panel.add(btnShowConfirm);
+		
+		JButton btnShowInput = new JButton("Show Input");
+		btnShowInput.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String lastName = (String)JOptionPane.showInputDialog(
+						contentPane,
+						"Enter Last Name",
+						"Input",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						null, null, JOptionPane.QUESTION_MESSAGE);
+			}
+		});
+		panel.add(btnShowInput);
+		
+		JButton btnShowOption = new JButton("Show Option");
+		panel.add(btnShowOption);
+		
+		JButton btnShowGeneralDialog = new JButton("Show General Dialog");
+		btnShowGeneralDialog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panel.add(btnShowGeneralDialog);
+	}
+
+}

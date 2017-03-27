@@ -1,0 +1,220 @@
+/**
+Author: Casey Bladow
+Due Date: 10/2/2013
+Assignment #3 @version 2
+
+GUI with File Dialogs and Linked Lists
+Provides a File Chooser dialog to open/save a text file.
+Allows user to enter new students into the linked list in 
+a <firstName, lastName, GPA, Major> format.
+Also includes a Display all students to view all of the
+students in the linked list.
+ */
+
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+
+
+public class Asmt3v2 extends JFrame implements ActionListener{
+
+	private JPanel contentPane; private JPanel pnlMain;
+	private JFileChooser myChooser;
+	private JTextField firstName;
+	private JTextField lastName;
+	private JTextField gpa;
+	private JTextField major;
+	private JTextArea txtArea;
+	
+	ArrayList<ArrayList<String>> myData = new ArrayList<ArrayList<String>>();
+
+	/**
+	 * Launch the application.
+	 * 
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Asmt3v2 frame = new Asmt3v2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Asmt3v2() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		/*creates the JFileChooser and sets the default directory to (C:\Users)
+		 *limits the types of files shown to files ending with .txt
+		*/
+		File initDirectory = new File("C:\\Users");
+		myChooser = new JFileChooser(initDirectory);
+		FileNameExtensionFilter myTxtFilter =
+				new FileNameExtensionFilter("Text documents Only","txt");
+		myChooser.setFileFilter(myTxtFilter);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 424, 23);
+		contentPane.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JButton btnOpenFile = new JButton("Open File");
+		panel.add(btnOpenFile);
+		btnOpenFile.setActionCommand("openFile");
+		btnOpenFile.addActionListener(this);
+		
+		JButton btnSaveFile = new JButton("Save File");
+		panel.add(btnSaveFile);		
+		btnSaveFile.setActionCommand("saveFile");
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(5, 33, 424, 229);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(10, 14, 72, 14);
+		panel_1.add(lblFirstName);
+		
+		firstName = new JTextField();
+		firstName.setBounds(92, 8, 86, 20);
+		panel_1.add(firstName);
+		firstName.setColumns(10);
+		
+		JLabel lblLastName = new JLabel("Last Name:");
+		lblLastName.setBounds(10, 39, 72, 14);
+		panel_1.add(lblLastName);
+		
+		lastName = new JTextField();
+		lastName.setBounds(92, 33, 86, 20);
+		panel_1.add(lastName);
+		lastName.setColumns(10);
+		
+		JLabel lblGpa = new JLabel("GPA:");
+		lblGpa.setBounds(10, 65, 72, 14);
+		panel_1.add(lblGpa);
+		
+		gpa = new JTextField();
+		gpa.setBounds(92, 59, 86, 20);
+		panel_1.add(gpa);
+		gpa.setColumns(10);
+		
+		JLabel lblMajor = new JLabel("Major:");
+		lblMajor.setBounds(10, 90, 72, 14);
+		panel_1.add(lblMajor);
+		
+		major = new JTextField();
+		major.setBounds(92, 84, 86, 20);
+		panel_1.add(major);
+		major.setColumns(10);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tmpFName = firstName.getText();
+				String tmpLName = lastName.getText();
+				String tmpgpa = gpa.getText();
+				String tmpMajor = major.getText();
+				
+				ArrayList<String> tmpRow = new ArrayList<String>();
+				tmpRow.add(tmpFName);
+				tmpRow.add(tmpLName);
+				tmpRow.add(tmpgpa);
+				tmpRow.add(tmpMajor);
+				
+				firstName.setText(" ");
+				lastName.setText(" ");
+				gpa.setText(" ");
+				major.setText(" ");
+				firstName.requestFocus();
+				
+				myData.add(tmpRow);
+				
+				for (ArrayList<String> oneRow : myData)
+				{
+					for (int colCt = 0; colCt < oneRow.size(); colCt++)
+					{
+						System.out.println(oneRow.get(colCt) + "\t");
+					}					
+				}
+			}
+		});
+		btnSubmit.setBounds(89, 115, 89, 23);
+		panel_1.add(btnSubmit);
+		
+		JButton btnDisplayAllStudents = new JButton("Display all students");
+		btnDisplayAllStudents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(myData);
+				txtArea.setText(" ");
+				for(ArrayList<String> myRow : myData)
+				{
+					for (int colCt = 0; colCt < myRow.size(); colCt++)
+					{
+						txtArea.append(myRow.get(colCt)+"\t");
+					}
+				}
+				txtArea.append("\n");
+			}
+		});
+		btnDisplayAllStudents.setBounds(215, 10, 199, 23);
+		panel_1.add(btnDisplayAllStudents);
+		
+		JTextArea txtArea = new JTextArea();
+		txtArea.setBounds(215, 34, 199, 110);
+		panel_1.add(txtArea);
+		btnSaveFile.addActionListener(this);
+	}
+
+	/*
+	This is the actionPerform for the Open and Save file buttons.
+	*/
+	/**
+	 * Action performed tells the GUI what to do when either the
+	 * open file or save file buttons are pressed.
+	 */
+	public void actionPerformed(ActionEvent e){
+		if ("openFile".equals(e.getActionCommand())){
+			int btnChosen = myChooser.showOpenDialog(pnlMain);
+			if (btnChosen == JFileChooser.APPROVE_OPTION){
+				System.out.println("Directory: " + myChooser.getCurrentDirectory());
+				System.out.println("File Choosen was: " + myChooser.getSelectedFile());
+			}
+			else if (btnChosen == JFileChooser.CANCEL_OPTION)
+				System.out.println("No File was Chosen");
+		}//end if
+		else if ("saveFile".equals(e.getActionCommand())){
+			int btnChosen = myChooser.showSaveDialog(pnlMain);
+			if (btnChosen == JFileChooser.APPROVE_OPTION){
+				System.out.println("Directory for saving: "+ myChooser.getCurrentDirectory());
+			}
+			else if (btnChosen == JFileChooser.CANCEL_OPTION)
+				System.out.println("No directory chosen for saving");
+		}//end else if
+	}//end actionPerformed
+}

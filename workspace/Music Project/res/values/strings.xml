@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="app_name">Music Projact</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string-array name="Songs">
+        <item >Kid Rock Bawitdaba</item>
+        <item >Hinder What Ya Gonna Do</item>
+        <item >AC DC Thunderstruck</item>
+    </string-array>
+    <string name="Title">Select Song</string>
+
+</resources>

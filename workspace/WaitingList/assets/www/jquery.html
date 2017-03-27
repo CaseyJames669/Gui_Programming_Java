@@ -1,0 +1,48 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1, target-densityDpi=device-dpi"/>
+   <title>jQuery demo</title>   
+ </head>
+ 
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+   <script>
+   
+   
+$(document).ready(function(){
+  $("button").click(function(){
+    alert("Thanks For Checking In: " + $("#test").val() + " " + $("#test1").val() + " With " + $("#test2").val() + " People");
+  });
+});
+     
+$(document).ready(function(){
+  $("button").click(function(){
+        $("#test3").text($("#test").val() + " " + $("#test1").val() + " With " + $("#test2").val() + " People");
+  });
+});
+   </script> 
+   
+   
+<body>
+
+<p>First Name: <input type="text" id="test"></p>
+<p>Last Name: <input type="text" id="test1"></p>
+<p>Number Of People: <input type="text" id="test2"></p>
+<button>Show Value</button>
+
+<p id="test3"></p>
+
+<style type="text/css"> 
+body
+{
+    background: url(fargo.JPG) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+</style>
+
+</body> 
+ </html>
